@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat with AI</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(145deg, #001f3f, #0074D9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      padding: 15px;
+      background-color: #003366;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .chat-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .message {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border-radius: 15px;
+      max-width: 70%;
+      word-wrap: break-word;
+      font-size: 1rem;
+    }
+
+    .user-message {
+      background-color: #2196f3;
+      color: white;
+      margin-left: auto;
+      border-top-right-radius: 0;
+    }
+
+    .bot-message {
+      background-color: #e0f2ff;
+      color: #004080;
+      margin-right: auto;
+      border-top-left-radius: 0;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      background: #ffffff;
+      color: #003366;
+      font-weight: 500;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      background: linear-gradient(135deg, #1e88e5, #1565c0);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      padding: 10px 25px;
+      font-weight: 600;
+      box-shadow: 0 0 10px #64b5f6;
+      transition: background 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Chat Header -->
+  <div class="chat-header">
+    🤖 Chat with your PDF
+  </div>
+
+  <!-- Chat Area -->
+  <div class="chat-container" id="chat-box">
+    <!-- Messages will appear here dynamically -->
+    <div class="bot-message message">
+      Hello! Ask me anything about your uploaded file. 😊
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <!-- Chat Script -->
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const question = input.value.trim();
+      if (question === '') return;
+
+      // Add user message to chat
+      const chatBox = document.getElementById('chat-box');
+      const userMsg = document.createElement('div');
+      userMsg.className = 'user-message message';
+      userMsg.textContent = question;
+      chatBox.appendChild(userMsg);
+      input.value = '';
+
+      // Send to backend
+      const formData = new FormData();
+      formData.append('user_query', question);
+
+      fetch('/ask', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'bot-message message';
+        botMsg.textContent = data.answer;
+        chatBox.appendChild(botMsg);
+      });
+    }
+  </script>
+</body>
+</html>

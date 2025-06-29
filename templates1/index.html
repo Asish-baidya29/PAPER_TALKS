@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PAPER TALKS</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(145deg, #001f3f, #0074D9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      border-radius: 15px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 700px;
+      z-index: 10;
+      color: white;
+    }
+
+    h1 {
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px #0056b3;
+    }
+
+    p.lead {
+      font-size: 1.1rem;
+      color: #d6e9ff;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #d6e9ff;
+    }
+
+    #file {
+      margin: auto;
+      display: block;
+      border: 2px dashed #64b5f6;
+      padding: 12px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    #num_questions {
+      margin: 20px auto;
+      display: block;
+      width: 120px;
+      text-align: center;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid #64b5f6;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1e88e5, #1565c0);
+      border: none;
+      padding: 10px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      color: white;
+      box-shadow: 0 0 10px #64b5f6;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+    }
+
+    nav.navbar {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background-color: #003366;
+      color: white;
+      z-index: 20;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav.navbar .navbar-brand {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    nav.navbar .navbar-brand:hover {
+      color: #90caf9;
+    }
+
+    /* 3D Shape Styling */
+    .shape {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+      transition: transform 0.5s ease;
+      z-index: 1;
+    }
+
+    .shape:hover {
+      transform: rotateX(20deg) rotateY(20deg) scale(1.1);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .ball1 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at 30% 30%, #81d4fa, #0288d1);
+      border-radius: 50%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      bottom: 8%;
+      left: 6%;
+    }
+
+    .ball2 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at 30% 30%, #ffd54f, #ffb300);
+      border-radius: 50%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      top: 15%;
+      right: 5%;
+    }
+
+    .ball3 {
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle at 30% 30%, hsl(46, 76%, 44%), #ffb300);
+      border-radius: 50%;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+      top: 0%;
+      left: -2%;
+    }
+
+    .cube1 {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(145deg, #64b5f6, #42a5f5);
+      border-radius: 15px;
+      top: 60%;
+      left: 4%;
+      box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cube2 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(145deg, #ba68c8, #8e24aa);
+      border-radius: 10px;
+      top: 50%;
+      right: 2%;
+      box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <i class="fas fa-robot" style="margin-right: 6px;"></i> RAG_BASED_APPLICATION
+      </a>
+    </div>
+  </nav>
+
+  <!-- 3D Colorful Shapes -->
+  <div class="shape ball1"></div>
+  <div class="shape ball2"></div>
+  <div class="shape cube1"></div>
+  <div class="shape cube2"></div>
+  <div class="shape ball3"></div>
+
+  <!-- Main Container -->
+  <div class="container"style="margin-top: 60px;">
+    <h1 class="mb-4">PAPER TALKS</h1>
+    <p class="lead">
+      This application generates multiple-choice questions (MCQs) based on the provided text. You can either upload a PDF or TXT file containing the text.<br>
+  <strong>You can also chat with your uploaded document to get instant answers and clarifications.</strong>
+    </p>
+
+<div class="row">
+  <!-- Left Box: Generate MCQs -->
+  <div class="col-md-6">
+    <form method="POST" action="/mcq" enctype="multipart/form-data"
+          class="p-3 rounded d-flex flex-column justify-content-between"
+          style="height: 100%; background: rgba(255,255,255,0.05); border: 1px solid #64b5f6; min-height: 360px;">
+      <h5 class="text-white mb-3">Generate MCQs</h5>
+      <div class="form-groupmt-5">
+        <label for="file" class="text-white">Upload File(s)</label>
+        <input type="file" class="form-control-file" id="file" name="files[]" multiple/>
+      </div>
+      <div class="form-group">
+        <label for="num_questions" class="text-white">Number of Questions</label>
+        <select class="form-control" id="num_questions" name="num_questions">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-outline-light"
+              style="border-radius: 25px; font-weight: 600; border: 2px solid #64b5f6; box-shadow: 0 0 10px #64b5f6;">
+        Generate MCQs
+      </button>
+    </form>
+  </div>
+
+  <!-- Right Box: Chat with PDF -->
+  <div class="col-md-6">
+    <form method="POST" action="/chat" enctype="multipart/form-data"
+          class="p-3 rounded d-flex flex-column justify-content-between"
+          style="height: 100%; background: rgba(255,255,255,0.05); border: 1px solid #64b5f6; min-height: 360px;">
+      <h5 class="text-white mb-3">Chat with PDF</h5>
+      <div class="form-groupmt-5">
+        <label for="file" class="text-white">Upload File(s)</label>
+        <input type="file" class="form-control-file" id="file" name="files[]" multiple/>
+      </div>
+      <button type="submit" class="btn btn-outline-light mt-4"
+              style="border-radius: 25px; font-weight: 600; border: 2px solid #64b5f6; box-shadow: 0 0 10px #64b5f6;">
+        Chat with PDF
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .custom-file-upload {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: white;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid #64b5f6;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+  }
+
+  .custom-file-upload:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+  }
+</style>
+
+
+
+
+
+  </div>
+  <a href="{{ url_for('chat') }}">Go to Chat Page</a>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generated MCQs</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #001f3f, #0074D9);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding-top: 70px;
+      color: white;
+    }
+
+    .container {
+      margin-top: 2%;
+      margin-bottom: 5%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      padding: 35px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px #0056b3;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+      color: white;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .form-check-label {
+      font-size: 1rem;
+      color: #d6e9ff;
+    }
+
+    .form-check-input {
+      margin-top: 6px;
+    }
+
+    .correct-answer {
+      display: none;
+      font-size: 0.9rem;
+      color: #80e27e;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    .correct-answer.correct {
+      color: #80e27e;
+    }
+
+    .correct-answer.correct::before {
+      content: "✅ ";
+      margin-right: 4px;
+    }
+
+    #show-results-btn {
+      display: block;
+      margin: 40px auto 0;
+      padding: 12px 35px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #1e88e5, #1565c0);
+      border: none;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 0 10px #64b5f6;
+      transition: all 0.3s ease;
+    }
+
+    #show-results-btn:hover {
+      background: linear-gradient(135deg, #1565c0, #0d47a1);
+    }
+
+    nav.navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #003366;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    nav.navbar .navbar-brand {
+      color: white;
+      font-weight: 600;
+    }
+
+    nav.navbar .navbar-brand:hover {
+      color: #90caf9;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand mx-auto" href="#">Generated MCQs</a>
+    </div>
+  </nav>
+
+  <!-- MCQ Container -->
+  <div class="container" id="mcqs-container">
+    <h1 class="text-center">Generated MCQs</h1>
+    {% for index, mcq in mcqs %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Q{{ index }}: {{ mcq[0] }}?</h5>
+          <form>
+            {% set options = ['A', 'B', 'C', 'D'] %}
+            {% set num_choices = mcq[1]|length %}
+            {% for choice_index in range(num_choices) %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="answer{{ index }}" id="choice{{ index }}{{ choice_index }}" value="{{ choice_index }}">
+                <label class="form-check-label" for="choice{{ index }}{{ choice_index }}">
+                  {{ options[choice_index] }}: {{ mcq[1][choice_index] }}
+                </label>
+              </div>
+            {% endfor %}
+          </form>
+          <small class="text-muted correct-answer" data-answer="{{ mcq[2] }}">Correct Answer: {{ mcq[2] }}</small>
+        </div>
+      </div>
+    {% endfor %}
+    <button id="show-results-btn" class="btn btn-primary">Show Results</button>
+  </div>
+
+  <!-- Show Results Script -->
+  <script>
+    document.getElementById('show-results-btn').addEventListener('click', function () {
+      const correctAnswers = document.getElementsByClassName('correct-answer');
+
+      for (let i = 0; i < correctAnswers.length; i++) {
+        const answerTag = correctAnswers[i];
+        const qIndex = answerTag.parentElement.querySelector('form').querySelector('input').name.replace('answer', '');
+        const selected = document.querySelector(`input[name="answer${qIndex}"]:checked`);
+        const correct = answerTag.getAttribute('data-answer').trim();
+
+        if (selected) {
+          const selectedLabel = selected.nextElementSibling.innerText.trim();
+          const selectedAns = selectedLabel.split(':')[0].trim(); // Extract A, B, C or D
+          if (selectedAns === correct) {
+            answerTag.classList.add('correct'); // Add green + tick
+          }
+        }
+
+        answerTag.style.display = 'block';
+      }
+
+      this.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
+
